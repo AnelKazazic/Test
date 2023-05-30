@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,24 +30,24 @@ import com.media.nsofttask.Model.DetailsModel;
 import com.media.nsofttask.Model.ListModel;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;;
+import org.json.JSONObject;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String URL = "https://api.github.com/search/repositories?q=language:java&order=desc&sort=stars";
     private RecyclerView rec_view;
-    private RecyclerView.Adapter adapter;
+    private JavaListAdapter adapter;
     private List<ListModel> listModels;
+    private List<ListModel> listListFiltered;
     private List<DetailsModel> detailsModels;
     private ActionBar toolbar;
+    private SearchView searchView;
+
 
 
     @Override
@@ -88,8 +90,53 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search)
+                .getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                adapter.getFilter().filter(query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+
+                adapter.getFilter().filter(query);
+
+                return false;
+            }
+        });
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_search) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            return;
+        }
+        super.onBackPressed();
+    }
+
 
     private void GetData(){
         
@@ -108,33 +155,25 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     JSONArray array = jsonObject.getJSONArray("items");
-                    //SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy  hh:mm a");
-                    SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy h:mm", Locale.getDefault());
-
-                    DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM/uuuu");
-                    String dateformat = "2012-11-17T00:00:00.000-05:00";
-                    OffsetDateTime dateTime = OffsetDateTime.parse(dateformat);
-
 
                     for (int i=0;i<array.length();i++){
 
-
                             JSONObject object = array.getJSONObject(i);
                             JSONObject image = object.getJSONObject("owner");
-                            ListModel list = new ListModel(image.getString("avatar_url"),
+                            ListModel list = new ListModel(object.getString("id"), image.getString("avatar_url"),
                                     image.getString("login"), object.getString("full_name"
                             ), object.getString("language"), object.getString("stargazers_count"),
                                     object.getString("forks_count"), object.getString("open_issues"),
                                     object.getString("watchers_count"), favorite);
 
-                            DetailsModel model =new DetailsModel(
+                            DetailsModel model = new DetailsModel(
                                     image.getString("avatar_url"),
                                     object.getString("name"), object.getString("full_name"
                             ), object.getString("language"), object.getString("stargazers_count"),
                                     object.getString("forks_count"), object.getString("open_issues"),
                                     object.getString("watchers_count"),object.getString("default_branch"),
-                                    object.getString("created_at"),
-                                    object.getString("updated_at"), object.getString("html_url"));
+                                    formatDate(object.getString("created_at")),
+                                    formatDate(object.getString("updated_at")), object.getString("html_url"));
 
 
                            listModels.add(list);
@@ -142,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
 
-                    adapter = new JavaListAdapter(listModels, detailsModels, getApplicationContext());
+                    adapter = new JavaListAdapter(listModels, detailsModels, getApplicationContext(),listListFiltered);
                     rec_view.setAdapter(adapter);
 
 
@@ -166,5 +205,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public String formatDate(String dateString) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        Date date = null;
+        try {
+            date = fmt.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat fmtOut = new SimpleDateFormat("dd/MM/yyyy H:mm:ss");
+        return fmtOut.format(date);
+    }
 
 }

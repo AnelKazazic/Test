@@ -1,47 +1,35 @@
 package com.media.nsofttask.Database;
 
 import android.content.Context;
-import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.bumptech.glide.Glide;
+import com.media.nsofttask.Model.FavoriteModel;
 import com.media.nsofttask.R;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.DataViewHolder> {
 
     Context context;
-    ArrayList avatar_url, owner, name, description, star, forks, issues, watchers;
+    public List<FavoriteModel> favoriteModels;
 
-    public DatabaseAdapter (Context context,ArrayList avatar_url, ArrayList owner,
-                            ArrayList name, ArrayList description,   ArrayList star,
-                            ArrayList forks,  ArrayList issues, ArrayList watchers){
+    public DatabaseAdapter (Context context,List<FavoriteModel> favoriteModels){
 
-        this.context=context;
-        this.avatar_url=avatar_url;
-        this.owner=owner;
-        this.name = name;
-        this.description=description;
-        this.star=star;
-        this.forks=forks;
-        this.issues=issues;
-        this.watchers=watchers;
+        this.context = context;
+        this.favoriteModels = favoriteModels;
     }
 
     @NonNull
     @Override
     public DatabaseAdapter.DataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_user_data, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_favorite_helper, parent, false);
         return new DataViewHolder(view);
     }
 
@@ -49,22 +37,23 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.DataVi
     @Override
     public void onBindViewHolder(@NonNull DatabaseAdapter.DataViewHolder holder, int position) {
 
+        final FavoriteModel favoriteModel = favoriteModels.get(position);
 
-
-        holder.avatarurl.setImageIcon(Icon.createWithContentUri(String.valueOf(avatar_url.get(position))));
-        holder.owner.setText(String.valueOf(owner.get(position)));
-        holder.name.setText(String.valueOf(name.get(position)));
-        holder.description.setText(String.valueOf(description.get(position)));
-        holder.star.setText(String.valueOf(star.get(position)));
-        holder.forks.setText(String.valueOf(forks.get(position)));
-        holder.issues.setText(String.valueOf(issues.get(position)));
-        holder.watchers.setText(String.valueOf(watchers.get(position)));
-
+        Glide.with(context)
+                .load(favoriteModel.getAvatarurl())
+                .into(holder.avatarurl);
+        holder.owner.setText(favoriteModel.getOwner());
+        holder.name.setText(favoriteModel.getName());
+        holder.description.setText(favoriteModel.getDescription());
+        holder.star.setText(favoriteModel.getStar());
+        holder.forks.setText(favoriteModel.getForks());
+        holder.issues.setText(favoriteModel.getIssues());
+        holder.watchers.setText(favoriteModel.getWatchers());
     }
 
     @Override
     public int getItemCount() {
-        return avatar_url.size();
+        return favoriteModels.size();
     }
 
     public static class DataViewHolder extends RecyclerView.ViewHolder {
@@ -82,15 +71,15 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.DataVi
         public DataViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            avatarurl= (ImageView) itemView.findViewById(R.id.image1);
-            owner = (TextView) itemView.findViewById(R.id.txt_login);
-            name = (TextView) itemView.findViewById(R.id.txt_name);
-            description = (TextView) itemView.findViewById(R.id.txt_description);
-            star = (TextView) itemView.findViewById(R.id.txt_star);
-            forks = (TextView) itemView.findViewById(R.id.txt_forks);
-            issues = (TextView) itemView.findViewById(R.id.txt_issues);
-            watchers = (TextView) itemView.findViewById(R.id.txt_watchers);
-            favorite =(ImageView) itemView.findViewById(R.id.image6);
+            avatarurl = itemView.findViewById(R.id.image1);
+            owner = itemView.findViewById(R.id.txt_login);
+            name = itemView.findViewById(R.id.txt_name);
+            description = itemView.findViewById(R.id.txt_description);
+            star = itemView.findViewById(R.id.txt_star);
+            forks = itemView.findViewById(R.id.txt_forks);
+            issues = itemView.findViewById(R.id.txt_issues);
+            watchers = itemView.findViewById(R.id.txt_watchers);
+            favorite = itemView.findViewById(R.id.image6);
 
         }
     }

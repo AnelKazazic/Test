@@ -9,9 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,20 +36,15 @@ public class UserActivity extends AppCompatActivity {
 
     ImageView arrow_image;
     ImageView image_user;
-    TextView txt1;
+    ImageView image_favorite;
+    TextView txt_login;
     ImageView image_html;
-    TextView txt2;
-    TextView txt3;
-    ImageView img1;
-    ImageView img2;
-    ImageView img3;
-    ImageView img4;
-    ImageView img5;
+    TextView txt_branch;
+    TextView txt_description;
     TextView txt_star;
     TextView txt_forks;
     TextView txt_issues;
     TextView txt_watcherss;
-    TextView txt_branch;
     TextView txt_created;
     TextView txt_updated;
 
@@ -71,15 +64,11 @@ public class UserActivity extends AppCompatActivity {
 
         arrow_image = findViewById(R.id.arrow_image);
         image_user = findViewById(R.id.image_user);
-        txt1 = findViewById(R.id.txt1);
+        txt_login = findViewById(R.id.txt_login);
         image_html = findViewById(R.id.image_html);
-        txt2 = findViewById(R.id.txt2);
-        txt3 = findViewById(R.id.txt3);
-        img1 = findViewById(R.id.img1);
-        img2 = findViewById(R.id.img2);
-        img3 = findViewById(R.id.img3);
-        img4 = findViewById(R.id.img4);
-        img5 = findViewById(R.id.img5);
+        txt_description = findViewById(R.id.txt_description);
+        //txt3 = findViewById(R.id.txt3);
+        image_favorite = findViewById(R.id.image_favorite);
         txt_star = findViewById(R.id.txt_star);
         txt_forks = findViewById(R.id.txt_forks);
         txt_issues = findViewById(R.id.txt_issues);
@@ -98,6 +87,7 @@ public class UserActivity extends AppCompatActivity {
         recycler_contributors.setHasFixedSize(true);
         recycler_contributors.setLayoutManager(new LinearLayoutManager(UserActivity.this));
         recycler_contributors.setAdapter(adapter);
+
 
 
         Intent intent = this.getIntent();
@@ -120,9 +110,9 @@ public class UserActivity extends AppCompatActivity {
                 .load(avatar_url)
                 .into(image_user);
 
-        txt1.setText(owner);
-        txt2.setText(name);
-        txt3.setText(description);
+        txt_login.setText(owner);
+        //txt2.setText(name);
+        txt_description.setText(description);
         txt_star.setText(star);
         txt_forks.setText(forks);
         txt_issues.setText(issues);
@@ -175,6 +165,8 @@ public class UserActivity extends AppCompatActivity {
 
     private void GetContributors(){
 
+        boolean favorite = false;
+
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading data...");
@@ -192,7 +184,8 @@ public class UserActivity extends AppCompatActivity {
 
                         JSONObject object = array.getJSONObject(i);
                         JSONObject data = object.getJSONObject("owner");
-                        ContributorsModel list = new ContributorsModel(data.getString("avatar_url"), data.getString("login"));
+                        ContributorsModel list = new ContributorsModel(data.getString("avatar_url"),
+                                data.getString("login"), favorite);
                         contributorsModels.add(list);
 
                     }
@@ -219,6 +212,8 @@ public class UserActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
+
+
 
 }
 

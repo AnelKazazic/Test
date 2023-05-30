@@ -1,8 +1,7 @@
 package com.media.nsofttask.Model;
 
-public class ListModel {
+public class FavoriteModel {
 
-    private final String id;
     private final String avatarurl;
     private final String owner;
     private final String name;
@@ -11,13 +10,9 @@ public class ListModel {
     private final String forks;
     private final String issues;
     private final String watchers;
-    private final boolean favorite;
 
-    //public ListModel(){};
-
-    public ListModel(String id, String avatarurl, String owner, String name, String description, String star, String forks, String issues,
-                     String watchers, boolean favorite) {
-        this.id = id;
+    public FavoriteModel(String avatarurl, String owner, String name, String description, String star,
+                         String forks, String issues, String watchers) {
         this.avatarurl = avatarurl;
         this.owner = owner;
         this.name = name;
@@ -26,13 +21,7 @@ public class ListModel {
         this.forks = forks;
         this.issues = issues;
         this.watchers = watchers;
-        this.favorite = favorite;
     }
-
-    public String getId() {
-        return id;
-    }
-
 
     public String getAvatarurl() {
         return avatarurl;
@@ -66,11 +55,5 @@ public class ListModel {
         return watchers;
     }
 
-    public boolean getFavorite() {
-        return favorite;
-    }
-
 
 }
-
-

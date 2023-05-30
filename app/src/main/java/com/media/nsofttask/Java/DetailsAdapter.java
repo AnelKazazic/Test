@@ -101,19 +101,19 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsV
 
         public DetailsViewHolder(@NonNull View itemView) {
             super(itemView);
-            avatarurl= (ImageView) itemView.findViewById(R.id.image1);
-            owner = (TextView) itemView.findViewById(R.id.txt_login);
-            name = (TextView) itemView.findViewById(R.id.txt_name);
-            description = (TextView) itemView.findViewById(R.id.txt_description);
-            linearLayout = (LinearLayout) itemView.findViewById(R.id.layout1);
-            star = (TextView) itemView.findViewById(R.id.txt_star);
-            forks = (TextView) itemView.findViewById(R.id.txt_forks);
-            issues = (TextView) itemView.findViewById(R.id.txt_issues);
-            watchers = (TextView) itemView.findViewById(R.id.txt_watchers);
-            branch = (TextView) itemView.findViewById(R.id.txt_branch);
-            created = (TextView) itemView.findViewById(R.id.txt_created);
-            updated = (TextView) itemView.findViewById(R.id.txt_updated);
-            image_html = (ImageView) itemView.findViewById(R.id.image_html);
+            avatarurl= itemView.findViewById(R.id.image1);
+            owner = itemView.findViewById(R.id.txt_login);
+            name = itemView.findViewById(R.id.txt_name);
+            description = itemView.findViewById(R.id.txt_description);
+            linearLayout = itemView.findViewById(R.id.layout1);
+            star = itemView.findViewById(R.id.txt_star);
+            forks = itemView.findViewById(R.id.txt_forks);
+            issues = itemView.findViewById(R.id.txt_issues);
+            watchers = itemView.findViewById(R.id.txt_watchers);
+            branch = itemView.findViewById(R.id.txt_branch);
+            created = itemView.findViewById(R.id.txt_created);
+            updated = itemView.findViewById(R.id.txt_updated);
+            image_html = itemView.findViewById(R.id.image_html);
         }
     }
 }

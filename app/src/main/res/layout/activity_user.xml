@@ -23,235 +23,218 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-   <LinearLayout
-       android:id="@+id/lay1"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/image_user"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="16dp"
+            app:layout_constraintBottom_toTopOf="@id/txt_created"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            app:layout_constraintEnd_toStartOf="@id/image_html"
+            app:layout_constraintStart_toEndOf="@id/image_user"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_html"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="16dp"
+            android:drawablePadding="4dp"
+            android:src="@drawable/ic_baseline_html_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txt_login"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_branch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_user"
+            app:layout_constraintTop_toBottomOf="@id/txt_login" />
+
+        <TextView
+            android:id="@+id/txt_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_user"
+            app:layout_constraintTop_toBottomOf="@id/txt_branch" />
+
+        <TextView
+            android:id="@+id/txt_created"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_description" />
+
+        <TextView
+            android:id="@+id/txt_updated"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_created" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#2DA5DB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_updated" />
+
+        <TextView
+            android:id="@+id/txt_star"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:drawablePadding="4dp"
+            android:textAlignment="center"
+            app:drawableTopCompat="@drawable/ic_baseline_star_outline_24"
+            app:layout_constraintEnd_toStartOf="@id/txt_forks"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view1" />
+
+        <TextView
+            android:id="@+id/txt_forks"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:drawablePadding="4dp"
+            android:textAlignment="center"
+            app:drawableTopCompat="@drawable/ic_baseline_polyline_24"
+            app:layout_constraintEnd_toStartOf="@id/txt_issues"
+            app:layout_constraintStart_toEndOf="@id/txt_star"
+            app:layout_constraintTop_toBottomOf="@id/view1" />
+
+        <TextView
+            android:id="@+id/txt_issues"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:drawablePadding="4dp"
+            android:textAlignment="center"
+            app:drawableTopCompat="@drawable/ic_baseline_report_about_24"
+            app:layout_constraintEnd_toStartOf="@id/txt_watchers"
+            app:layout_constraintStart_toEndOf="@id/txt_forks"
+            app:layout_constraintTop_toBottomOf="@id/view1" />
+
+        <TextView
+            android:id="@+id/txt_watchers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:drawablePadding="4dp"
+            android:textAlignment="center"
+            app:drawableTopCompat="@drawable/ic_baseline_remove_red_eye_24"
+            app:layout_constraintEnd_toStartOf="@+id/view2"
+            app:layout_constraintStart_toEndOf="@id/txt_issues"
+            app:layout_constraintTop_toBottomOf="@id/view1" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="5dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:background="#2DA5DB"
+            app:layout_constraintBottom_toTopOf="@id/list_divider"
+            app:layout_constraintEnd_toStartOf="@id/image_favorite"
+            app:layout_constraintStart_toEndOf="@id/txt_watchers"
+            app:layout_constraintTop_toBottomOf="@id/view1" />
+
+        <ImageView
+            android:id="@+id/image_favorite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:drawablePadding="4dp"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            app:layout_constraintBottom_toTopOf="@id/list_divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/view2"
+            app:layout_constraintTop_toBottomOf="@id/view1" />
+
+        <View
+            android:id="@+id/list_divider"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#2DA5DB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_star" />
 
 
-       <LinearLayout
-           android:id="@+id/lay2"
-           android:layout_width="match_parent"
-           android:layout_height="130dp"
-           android:layout_margin="3dp"
-           android:orientation="horizontal">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_contributors"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/list_divider"/>
 
-           <com.makeramen.roundedimageview.RoundedImageView
-               android:id="@+id/image_user"
-               android:layout_width="110dp"
-               android:layout_height="110dp"
-               android:layout_marginTop="16dp"
-               android:layout_marginEnd="16dp"
-               android:layout_marginStart="8dp"
-               android:layout_marginBottom="16dp"
-               app:riv_corner_radius="22dp"
-               android:contentDescription="TODO"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-           <LinearLayout
-               android:id="@+id/lay3"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="vertical">
-
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="50dp"
-                   android:layout_marginStart="5dp"
-                   android:layout_marginTop="10dp">
-
-               <TextView
-                   android:id="@+id/txt1"
-                   android:layout_width="180dp"
-                   android:layout_height="40dp"
-                   android:layout_marginTop="10dp"
-                   android:textColor="#1D1D1D"
-                   android:textSize="18sp" />
-
-                   <ImageView
-                       android:id="@+id/image_html"
-                       android:layout_width="60dp"
-                       android:layout_height="600dp"
-                       android:layout_marginStart="186dp"
-                       android:src="@drawable/ic_baseline_html_24"
-                       android:contentDescription="TODO"/>
-
-               </RelativeLayout>
-
-               <TextView
-                   android:id="@+id/txt2"
-                   android:layout_width="fill_parent"
-                   android:layout_height="40dp"
-                   android:layout_marginStart="5dp"
-                   android:textColor="#1D1D1D"
-                   android:textSize="18sp"/>
-
-               <TextView
-                   android:id="@+id/txt3"
-                   android:layout_width="fill_parent"
-                   android:layout_height="40dp"
-                   android:layout_marginStart="5dp"
-                   android:textColor="#1D1D1D"
-                   android:textSize="18sp"/>
-
-           </LinearLayout>
-
-
-   </LinearLayout>
-
-
-       <LinearLayout
-           android:id="@+id/repo_layout"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical">
-
-           <TextView
-               android:id="@+id/txt_branch"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginStart="10dp"
-               android:textColor="#1D1D1D"
-               android:textSize="18sp" />
-           <TextView
-               android:id="@+id/txt_created"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginStart="10dp"
-               android:textColor="#1D1D1D"
-               android:textSize="18sp" />
-
-           <TextView
-               android:id="@+id/txt_updated"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginStart="10dp"
-               android:textColor="#1D1D1D"
-               android:textSize="18sp" />
-
-       </LinearLayout>
-
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="4dp"
-           android:layout_margin="3dp"
-           android:background="#2DA5DB" />
-
-       <LinearLayout
-           android:id="@+id/lay4"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal">
-
-           <ImageView
-               android:id="@+id/img1"
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:layout_marginEnd="16dp"
-               android:layout_marginStart="20dp"
-               android:layout_marginBottom="16dp"
-               android:src="@drawable/ic_baseline_star_outline_24"
-               android:contentDescription="TODO"/>
-
-           <ImageView
-               android:id="@+id/img2"
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:layout_marginEnd="16dp"
-               android:layout_marginStart="25dp"
-               android:layout_marginBottom="16dp"
-               android:src="@drawable/ic_baseline_polyline_24"
-               android:contentDescription="TODO"/>
-
-           <ImageView
-               android:id="@+id/img3"
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:layout_marginEnd="16dp"
-               android:layout_marginStart="35dp"
-               android:layout_marginBottom="16dp"
-               android:src="@drawable/ic_baseline_error_outline_24"
-               android:contentDescription="TODO"/>
-
-           <ImageView
-               android:id="@+id/img4"
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:layout_marginEnd="16dp"
-               android:layout_marginStart="25dp"
-               android:layout_marginBottom="16dp"
-               android:src="@drawable/ic_baseline_remove_red_eye_24"
-               android:contentDescription="TODO"/>
-
-           <View
-               android:layout_width="5dp"
-               android:layout_height="40dp"
-               android:layout_margin="3dp"
-               android:background="#2DA5DB" />
-
-           <ImageView
-               android:id="@+id/img5"
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:layout_marginEnd="16dp"
-               android:layout_marginStart="18dp"
-               android:layout_marginBottom="16dp"
-               android:src="@drawable/ic_baseline_favorite_border_24"
-               android:contentDescription="TODO"/>
-
-
-       </LinearLayout>
-
-       <LinearLayout
-           android:id="@+id/result_layout"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal">
-
-           <TextView
-               android:id="@+id/txt_star"
-               android:layout_width="60dp"
-               android:layout_height="40dp"
-               android:layout_marginStart="15dp"
-               android:textColor="#1D1D1D"
-               android:textSize="18sp" />
-
-           <TextView
-               android:id="@+id/txt_forks"
-               android:layout_width="70dp"
-               android:layout_height="40dp"
-               android:layout_marginStart="25dp"
-               android:textColor="#1D1D1D"
-               android:textSize="18sp" />
-
-           <TextView
-               android:id="@+id/txt_issues"
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:layout_marginStart="20dp"
-               android:textColor="#1D1D1D"
-               android:textSize="18sp" />
-
-           <TextView
-               android:id="@+id/txt_watchers"
-               android:layout_width="80dp"
-               android:layout_height="40dp"
-               android:layout_marginStart="25dp"
-               android:textColor="#1D1D1D"
-               android:textSize="18sp" />
-
-       </LinearLayout>
-
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="4dp"
-           android:layout_margin="3dp"
-           android:background="#2DA5DB" />
-
-   </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_contributors"
+        android:id="@+id/recycler_favorites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/oker"/>

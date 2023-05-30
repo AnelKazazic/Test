@@ -6,11 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.media.nsofttask.Database.DataContributorsHelper;
 import com.media.nsofttask.Model.ContributorsModel;
 import com.media.nsofttask.R;
 
@@ -20,6 +19,7 @@ public class ContributorsAdapter extends RecyclerView.Adapter<ContributorsAdapte
 
     public final List<ContributorsModel> contributorsModels;
     public Context context;
+    DataContributorsHelper contributorsHelper;
 
     public ContributorsAdapter(List<ContributorsModel> contributorsModels, Context context) {
         this.contributorsModels = contributorsModels;
@@ -45,6 +45,23 @@ public class ContributorsAdapter extends RecyclerView.Adapter<ContributorsAdapte
 
         holder.contributor_name.setText(contributors.getContributor_name());
 
+        holder.favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                contributorsHelper = new DataContributorsHelper(context.getApplicationContext());
+
+                final String avatar_ur = contributors.getContributors();
+                final String owner = contributors.getContributor_name();
+
+                contributorsHelper.InsertData(avatar_ur,owner);
+
+
+            }
+        });
+
+
+
     }
 
     @Override
@@ -56,6 +73,7 @@ public class ContributorsAdapter extends RecyclerView.Adapter<ContributorsAdapte
 
         ImageView contributor_url;
         TextView contributor_name;
+        ImageView favorite;
 
 
         public ContributorsViewHolder(@NonNull View itemView) {
@@ -63,6 +81,7 @@ public class ContributorsAdapter extends RecyclerView.Adapter<ContributorsAdapte
 
             contributor_url= itemView.findViewById(R.id.contributor_url);
             contributor_name = itemView.findViewById(R.id.contributor_name);
+            favorite = itemView.findViewById(R.id.favorite_img);
         }
     }
 }
