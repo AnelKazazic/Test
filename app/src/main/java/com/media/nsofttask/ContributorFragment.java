@@ -6,21 +6,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.media.nsofttask.Database.ConAdapter;
-import com.media.nsofttask.Database.DataContributorsHelper;
-import com.media.nsofttask.Model.ConModel;
+import com.media.nsofttask.database.ContributorsDBAdapter;
+import com.media.nsofttask.database.ContributorsDBHelper;
+import com.media.nsofttask.model.ContributorsDBModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContributorActivity extends Fragment {
+public class ContributorFragment extends Fragment {
 
     RecyclerView rec_contributors;
     private RecyclerView.Adapter adapter;
-    List<ConModel> conModels;
+    List<ContributorsDBModel> contributorsDBModels;
     private Context context;
 
 
@@ -35,7 +35,7 @@ public class ContributorActivity extends Fragment {
         rec_contributors.setHasFixedSize(true);
         rec_contributors.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
-        conModels = new ArrayList<>();
+        contributorsDBModels = new ArrayList<>();
 
         GetData();
 
@@ -44,8 +44,8 @@ public class ContributorActivity extends Fragment {
 
     private void GetData() {
 
-        DataContributorsHelper dataContributorsHelper = new DataContributorsHelper(this.getActivity());
-        Cursor cursor = dataContributorsHelper.ReadData();
+        ContributorsDBHelper contributorsDBHelper = new ContributorsDBHelper(this.getActivity());
+        Cursor cursor = contributorsDBHelper.ReadData();
 
         if(cursor.getCount()==0){
 
@@ -55,14 +55,14 @@ public class ContributorActivity extends Fragment {
 
             while(cursor.moveToNext()){
 
-                ConModel list = new ConModel(cursor.getString(0),cursor.getString(1));
+                ContributorsDBModel list = new ContributorsDBModel(cursor.getString(0),cursor.getString(1));
 
-                conModels.add(list);
+                contributorsDBModels.add(list);
 
             }
         }
 
-        adapter = new ConAdapter(getContext(),conModels);
+        adapter = new ContributorsDBAdapter(getContext(), contributorsDBModels);
         rec_contributors.setAdapter(adapter);
     }
 

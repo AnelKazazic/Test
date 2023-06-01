@@ -4,5 +4,7 @@
     <string name="todo">TODO</string>
     <string name="list">List</string>
     <string name="favorites">Favorites</string>
-    <string name="databasePath">/data/data/com.media.nsofttask/databases/</string>
+    <string name="branch">Branch</string>
+
+
 </resources>

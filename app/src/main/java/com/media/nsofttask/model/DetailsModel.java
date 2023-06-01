@@ -1,6 +1,10 @@
-package com.media.nsofttask.Model;
+package com.media.nsofttask.model;
 
-public class FavoriteModel {
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+public class DetailsModel {
 
     private final String avatarurl;
     private final String owner;
@@ -10,9 +14,14 @@ public class FavoriteModel {
     private final String forks;
     private final String issues;
     private final String watchers;
+    private final String branch;
+    private final String created;
+    private final String updated;
+    private final String html;
 
-    public FavoriteModel(String avatarurl, String owner, String name, String description, String star,
-                         String forks, String issues, String watchers) {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public DetailsModel(String avatarurl, String owner, String name, String description, String star, String forks,
+                        String issues, String watchers, String branch, String created, String updated, String html) {
         this.avatarurl = avatarurl;
         this.owner = owner;
         this.name = name;
@@ -21,6 +30,10 @@ public class FavoriteModel {
         this.forks = forks;
         this.issues = issues;
         this.watchers = watchers;
+        this.branch = branch;
+        this.created = created;
+        this.updated = updated;
+        this.html = html;
     }
 
     public String getAvatarurl() {
@@ -55,5 +68,20 @@ public class FavoriteModel {
         return watchers;
     }
 
+    public String getBranch() {
+        return branch;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public String getUpdated() {
+        return updated;
+    }
+
+    public String getHtml() {
+        return html;
+    }
 
 }

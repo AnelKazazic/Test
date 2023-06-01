@@ -1,19 +1,18 @@
-package com.media.nsofttask.Java;
+package com.media.nsofttask.adapters;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.media.nsofttask.Model.DetailsModel;
+import com.media.nsofttask.model.DetailsModel;
 import com.media.nsofttask.R;
-import com.media.nsofttask.UserActivity;
+import com.media.nsofttask.DetailsActivity;
 
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsV
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(view.getContext(), UserActivity.class);
+                Intent intent = new Intent(view.getContext(), DetailsActivity.class);
                 intent.putExtra(KEY_URL,model.getAvatarurl());
                 intent.putExtra(KEY_OWNER,model.getOwner());
                 intent.putExtra(KEY_NAME,model.getName());

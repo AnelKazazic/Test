@@ -1,4 +1,4 @@
-package com.media.nsofttask.Java;
+package com.media.nsofttask.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
-import com.media.nsofttask.Database.DataContributorsHelper;
-import com.media.nsofttask.Model.ContributorsModel;
+import com.media.nsofttask.database.ContributorsDBHelper;
+import com.media.nsofttask.model.ContributorsModel;
 import com.media.nsofttask.R;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class ContributorsAdapter extends RecyclerView.Adapter<ContributorsAdapte
 
     public final List<ContributorsModel> contributorsModels;
     public Context context;
-    DataContributorsHelper contributorsHelper;
+    ContributorsDBHelper contributorsHelper;
 
     public ContributorsAdapter(List<ContributorsModel> contributorsModels, Context context) {
         this.contributorsModels = contributorsModels;
@@ -49,7 +49,7 @@ public class ContributorsAdapter extends RecyclerView.Adapter<ContributorsAdapte
             @Override
             public void onClick(View view) {
 
-                contributorsHelper = new DataContributorsHelper(context.getApplicationContext());
+                contributorsHelper = new ContributorsDBHelper(context.getApplicationContext());
 
                 final String avatar_ur = contributors.getContributors();
                 final String owner = contributors.getContributor_name();

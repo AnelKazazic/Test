@@ -6,20 +6,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.media.nsofttask.Database.DataBaseHelper;
-import com.media.nsofttask.Database.DatabaseAdapter;
-import com.media.nsofttask.Model.FavoriteModel;
+import com.media.nsofttask.database.RepozitoriDBHelper;
+import com.media.nsofttask.database.RepozitoriDBAdapter;
+import com.media.nsofttask.model.RepozitoriDBModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteActivity extends Fragment {
+public class FavoriteFragment extends Fragment {
 
     private RecyclerView.Adapter adapter;
-    List<FavoriteModel> favoriteModels;
+    List<RepozitoriDBModel> favoriteModels;
     RecyclerView rec_repo;
     private Context context;
 
@@ -45,8 +44,8 @@ public class FavoriteActivity extends Fragment {
 
      public void GetData(){
 
-         DataBaseHelper dataBaseHelper = new DataBaseHelper(this.getActivity());
-         Cursor cursor = dataBaseHelper.ReadData();
+         RepozitoriDBHelper repozitoriDBHelper = new RepozitoriDBHelper(this.getActivity());
+         Cursor cursor = repozitoriDBHelper.ReadData();
 
          if(cursor.getCount()==0){
 
@@ -56,7 +55,7 @@ public class FavoriteActivity extends Fragment {
 
              while (cursor.moveToNext()){
 
-                 FavoriteModel list = new FavoriteModel(cursor.getString(0),cursor.getString(1),
+                 RepozitoriDBModel list = new RepozitoriDBModel(cursor.getString(0),cursor.getString(1),
                          cursor.getString(2),cursor.getString(3),cursor.getString(4),
                          cursor.getString(5),cursor.getString(6),cursor.getString(7));
 
@@ -67,7 +66,7 @@ public class FavoriteActivity extends Fragment {
 
          }
 
-         adapter = new DatabaseAdapter(getContext(),favoriteModels);
+         adapter = new RepozitoriDBAdapter(getContext(),favoriteModels);
          rec_repo.setAdapter(adapter);
 
 }

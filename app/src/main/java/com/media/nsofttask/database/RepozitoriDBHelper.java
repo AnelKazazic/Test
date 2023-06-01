@@ -1,4 +1,4 @@
-package com.media.nsofttask.Database;
+package com.media.nsofttask.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,13 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.widget.Toast;
 
-public class DataBaseHelper extends SQLiteOpenHelper {
+public class RepozitoriDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "repozitori.db";
     private static final int DATABASE_VERSION = 1;
     private final Context context;
 
-    public DataBaseHelper(Context context){
+    public RepozitoriDBHelper(Context context){
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context=context;

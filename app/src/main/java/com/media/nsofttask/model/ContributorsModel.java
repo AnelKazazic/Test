@@ -1,4 +1,4 @@
-package com.media.nsofttask.Model;
+package com.media.nsofttask.model;
 
 public class ContributorsModel {
 

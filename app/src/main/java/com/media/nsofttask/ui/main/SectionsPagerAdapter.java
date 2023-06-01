@@ -5,8 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import com.media.nsofttask.ContributorActivity;
-import com.media.nsofttask.FavoriteActivity;
+import com.media.nsofttask.ContributorFragment;
+import com.media.nsofttask.FavoriteFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -33,9 +33,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
 
             case 0:
-                return new FavoriteActivity();
+                return new FavoriteFragment();
             case 1:
-                return new ContributorActivity();
+                return new ContributorFragment();
             default:
                 return null;
 

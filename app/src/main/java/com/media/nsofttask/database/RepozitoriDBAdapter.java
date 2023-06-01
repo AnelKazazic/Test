@@ -1,4 +1,4 @@
-package com.media.nsofttask.Database;
+package com.media.nsofttask.database;
 
 import android.content.Context;
 import android.os.Build;
@@ -11,16 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
-import com.media.nsofttask.Model.FavoriteModel;
+import com.media.nsofttask.model.RepozitoriDBModel;
 import com.media.nsofttask.R;
 import java.util.List;
 
-public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.DataViewHolder> {
+public class RepozitoriDBAdapter extends RecyclerView.Adapter<RepozitoriDBAdapter.DataViewHolder> {
 
     Context context;
-    public List<FavoriteModel> favoriteModels;
+    public List<RepozitoriDBModel> favoriteModels;
 
-    public DatabaseAdapter (Context context,List<FavoriteModel> favoriteModels){
+    public RepozitoriDBAdapter(Context context, List<RepozitoriDBModel> favoriteModels){
 
         this.context = context;
         this.favoriteModels = favoriteModels;
@@ -28,16 +28,16 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.DataVi
 
     @NonNull
     @Override
-    public DatabaseAdapter.DataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RepozitoriDBAdapter.DataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_favorite_helper, parent, false);
         return new DataViewHolder(view);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void onBindViewHolder(@NonNull DatabaseAdapter.DataViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RepozitoriDBAdapter.DataViewHolder holder, int position) {
 
-        final FavoriteModel favoriteModel = favoriteModels.get(position);
+        final RepozitoriDBModel favoriteModel = favoriteModels.get(position);
 
         Glide.with(context)
                 .load(favoriteModel.getAvatarurl())

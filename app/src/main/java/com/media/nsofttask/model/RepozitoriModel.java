@@ -1,13 +1,8 @@
-package com.media.nsofttask.Model;
+package com.media.nsofttask.model;
 
-import android.os.Build;
+public class RepozitoriModel {
 
-import androidx.annotation.RequiresApi;
-
-import java.time.OffsetDateTime;
-
-public class DetailsModel {
-
+    private final String id;
     private final String avatarurl;
     private final String owner;
     private final String name;
@@ -16,14 +11,13 @@ public class DetailsModel {
     private final String forks;
     private final String issues;
     private final String watchers;
-    private final String branch;
-    private final String created;
-    private final String updated;
-    private final String html;
+    private final boolean favorite;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public DetailsModel(String avatarurl, String owner, String name, String description, String star, String forks,
-                        String issues, String watchers, String branch, String created, String updated, String html) {
+    //public ListModel(){};
+
+    public RepozitoriModel(String id, String avatarurl, String owner, String name, String description, String star, String forks, String issues,
+                           String watchers, boolean favorite) {
+        this.id = id;
         this.avatarurl = avatarurl;
         this.owner = owner;
         this.name = name;
@@ -32,11 +26,13 @@ public class DetailsModel {
         this.forks = forks;
         this.issues = issues;
         this.watchers = watchers;
-        this.branch = branch;
-        this.created = created;
-        this.updated = updated;
-        this.html = html;
+        this.favorite = favorite;
     }
+
+    public String getId() {
+        return id;
+    }
+
 
     public String getAvatarurl() {
         return avatarurl;
@@ -70,20 +66,11 @@ public class DetailsModel {
         return watchers;
     }
 
-    public String getBranch() {
-        return branch;
+    public boolean getFavorite() {
+        return favorite;
     }
 
-    public String getCreated() {
-        return created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public String getHtml() {
-        return html;
-    }
 
 }
+
+

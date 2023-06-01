@@ -25,9 +25,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.media.nsofttask.Java.JavaListAdapter;
-import com.media.nsofttask.Model.DetailsModel;
-import com.media.nsofttask.Model.ListModel;
+import com.media.nsofttask.adapters.RepozitoriAdapter;
+import com.media.nsofttask.model.DetailsModel;
+import com.media.nsofttask.model.RepozitoriModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,27 +41,28 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String URL = "https://api.github.com/search/repositories?q=language:java&order=desc&sort=stars";
     private RecyclerView rec_view;
-    private JavaListAdapter adapter;
-    private List<ListModel> listModels;
-    private List<ListModel> listListFiltered;
+    private RepozitoriAdapter adapter;
+    private List<RepozitoriModel> repozitoriModels;
+    private List<RepozitoriModel> listListFiltered;
     private List<DetailsModel> detailsModels;
-    private ActionBar toolbar;
+    public ActionBar toolbar;
     private SearchView searchView;
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         toolbar = getSupportActionBar();
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.bringToFront();
         rec_view = findViewById(R.id.rec_view);
         rec_view.setHasFixedSize(true);
         rec_view.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        listModels = new ArrayList<>();
+        repozitoriModels = new ArrayList<>();
         detailsModels = new ArrayList<>();
         GetData();
 
@@ -138,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void GetData(){
         
         boolean favorite = false;
@@ -146,59 +148,47 @@ public class MainActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading data...");
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onResponse(String s) {
-                progressDialog.dismiss();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, s -> {
+            progressDialog.dismiss();
 
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    JSONArray array = jsonObject.getJSONArray("items");
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                JSONArray array = jsonObject.getJSONArray("items");
 
-                    for (int i=0;i<array.length();i++){
+                for (int i=0;i<array.length();i++){
 
-                            JSONObject object = array.getJSONObject(i);
-                            JSONObject image = object.getJSONObject("owner");
-                            ListModel list = new ListModel(object.getString("id"), image.getString("avatar_url"),
-                                    image.getString("login"), object.getString("full_name"
-                            ), object.getString("language"), object.getString("stargazers_count"),
-                                    object.getString("forks_count"), object.getString("open_issues"),
-                                    object.getString("watchers_count"), favorite);
+                        JSONObject object = array.getJSONObject(i);
+                        JSONObject image = object.getJSONObject("owner");
+                        RepozitoriModel list = new RepozitoriModel(object.getString("id"), image.getString("avatar_url"),
+                                image.getString("login"), object.getString("full_name"
+                        ), object.getString("language"), object.getString("stargazers_count"),
+                                object.getString("forks_count"), object.getString("open_issues"),
+                                object.getString("watchers_count"), favorite);
 
-                            DetailsModel model = new DetailsModel(
-                                    image.getString("avatar_url"),
-                                    object.getString("name"), object.getString("full_name"
-                            ), object.getString("language"), object.getString("stargazers_count"),
-                                    object.getString("forks_count"), object.getString("open_issues"),
-                                    object.getString("watchers_count"),object.getString("default_branch"),
-                                    formatDate(object.getString("created_at")),
-                                    formatDate(object.getString("updated_at")), object.getString("html_url"));
+                        DetailsModel model = new DetailsModel(
+                                image.getString("avatar_url"),
+                                object.getString("name"), object.getString("full_name"
+                        ), object.getString("language"), object.getString("stargazers_count"),
+                                object.getString("forks_count"), object.getString("open_issues"),
+                                object.getString("watchers_count"),object.getString("default_branch"),
+                                formatDate(object.getString("created_at")),
+                                formatDate(object.getString("updated_at")), object.getString("html_url"));
 
 
-                           listModels.add(list);
-                           detailsModels.add(model);
+                       repozitoriModels.add(list);
+                       detailsModels.add(model);
 
-                    }
-
-                    adapter = new JavaListAdapter(listModels, detailsModels, getApplicationContext(),listListFiltered);
-                    rec_view.setAdapter(adapter);
-
-
-
-                }catch (JSONException e){
-                    e.printStackTrace();
                 }
+
+                adapter = new RepozitoriAdapter(repozitoriModels, detailsModels, getApplicationContext(),listListFiltered);
+                rec_view.setAdapter(adapter);
+
+
+
+            }catch (JSONException e){
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-
-                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-
-            }
-        });
+        }, volleyError -> Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show());
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
